@@ -1,11 +1,11 @@
 import React from "react";
-import { PokemonList } from "../components/PokemonList";
+import { PokemonTable } from "../components/PokemonTable";
 
-export const PokemonListView = () => {
+export const PokemonTableView = () => {
   return (
     <div>
       <h1>Pokemons</h1>
-      <PokemonList />
+      <PokemonTable />
     </div>
   );
 };

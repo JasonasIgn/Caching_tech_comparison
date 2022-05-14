@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const PokemonList = () => {
+export const PokemonTable = () => {
 
   return (
     <div>
