@@ -1,3 +1,7 @@
-export const apiUrls = {
-  pokemons: "https://pokeapi.co/api/v2/pokemon",
+const apiUrls = {
+  base: "https://pokeapi.co/api/v2/",
+};
+
+export const config = {
+  apiUrls,
 };
