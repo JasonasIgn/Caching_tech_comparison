@@ -1,4 +1,13 @@
-import { Table, Tbody, Td, Th, Thead, Tr, Skeleton } from "@chakra-ui/react";
+import {
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  Skeleton,
+  Image,
+} from "@chakra-ui/react";
 import { useTable } from "react-table";
 import React, { FC } from "react";
 
@@ -14,12 +23,26 @@ export const PokemonTableComponent: FC<PokemonTableComponentProps> = ({
   const columns = React.useMemo(
     () => [
       {
-        Header: "Column 1",
-        accessor: "col1", // accessor is the "key" in the data
+        Header: "Id",
+        accessor: "id",
       },
       {
-        Header: "Column 2",
-        accessor: "col2",
+        Header: "",
+        accessor: "icon",
+        Cell: ({ value }: { value: string }) => (
+          <Image
+            src={value}
+            alt="Pokemon Image"
+            minWidth={10}
+          />
+        ),
+        width: "40px",
+        minWidth: "40px",
+      },
+      {
+        Header: "Name",
+        accessor: "name",
+        width: "100%",
       },
     ],
     []
@@ -52,6 +75,9 @@ export const PokemonTableComponent: FC<PokemonTableComponentProps> = ({
               <Td>
                 <Skeleton height="20px" />
               </Td>
+              <Td>
+                <Skeleton height="20px" />
+              </Td>
             </Tr>
           ))}
         {!isLoading &&
@@ -61,7 +87,15 @@ export const PokemonTableComponent: FC<PokemonTableComponentProps> = ({
               <Tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return (
-                    <Td {...cell.getCellProps()}>{cell.render("Cell")}</Td>
+                    <Td
+                      {...cell.getCellProps()}
+                      sx={{
+                        width: cell.column.width,
+                        minWidth: cell.column.minWidth,
+                      }}
+                    >
+                      {cell.render("Cell")}
+                    </Td>
                   );
                 })}
               </Tr>
