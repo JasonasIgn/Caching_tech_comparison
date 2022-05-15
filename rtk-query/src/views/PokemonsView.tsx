@@ -1,5 +1,5 @@
 import React from "react";
-import { PokemonTable } from "../components/PokemonTable";
+import { PokemonTable } from "../components/PokemonTable/PokemonTable";
 
 export const PokemonTableView = () => {
   return (
