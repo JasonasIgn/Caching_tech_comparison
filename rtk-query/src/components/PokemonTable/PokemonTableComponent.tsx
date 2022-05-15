@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useTable } from "react-table";
 import React, { FC } from "react";
+import { TableActions } from "../TableActions";
 
 interface PokemonTableComponentProps {
   data?: any[];
@@ -30,11 +31,7 @@ export const PokemonTableComponent: FC<PokemonTableComponentProps> = ({
         Header: "",
         accessor: "icon",
         Cell: ({ value }: { value: string }) => (
-          <Image
-            src={value}
-            alt="Pokemon Image"
-            minWidth={10}
-          />
+          <Image src={value} alt="Pokemon Image" minWidth={10} />
         ),
         width: "40px",
         minWidth: "40px",
@@ -55,53 +52,62 @@ export const PokemonTableComponent: FC<PokemonTableComponentProps> = ({
     });
 
   return (
-    <Table {...getTableProps()}>
-      <Thead>
-        {headerGroups.map((headerGroup) => (
-          <Tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <Th {...column.getHeaderProps()}>{column.render("Header")}</Th>
-            ))}
-          </Tr>
-        ))}
-      </Thead>
-      <Tbody {...getTableBodyProps()}>
-        {isLoading &&
-          Array.from({ length: 20 }, (v, i) => i).map((row) => (
-            <Tr>
-              <Td>
-                <Skeleton height="20px" />
-              </Td>
-              <Td>
-                <Skeleton height="20px" />
-              </Td>
-              <Td>
-                <Skeleton height="20px" />
-              </Td>
+    <>
+      <Table {...getTableProps()}>
+        <Thead>
+          {headerGroups.map((headerGroup) => (
+            <Tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <Th {...column.getHeaderProps()}>{column.render("Header")}</Th>
+              ))}
             </Tr>
           ))}
-        {!isLoading &&
-          rows.map((row, i) => {
-            prepareRow(row);
-            return (
-              <Tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <Td
-                      {...cell.getCellProps()}
-                      sx={{
-                        width: cell.column.width,
-                        minWidth: cell.column.minWidth,
-                      }}
-                    >
-                      {cell.render("Cell")}
-                    </Td>
-                  );
-                })}
+        </Thead>
+        <Tbody {...getTableBodyProps()}>
+          {isLoading &&
+            Array.from({ length: 20 }, (v, i) => i).map((row) => (
+              <Tr>
+                <Td>
+                  <Skeleton height="20px" />
+                </Td>
+                <Td>
+                  <Skeleton height="20px" />
+                </Td>
+                <Td>
+                  <Skeleton height="20px" />
+                </Td>
               </Tr>
-            );
-          })}
-      </Tbody>
-    </Table>
+            ))}
+          {!isLoading &&
+            rows.map((row, i) => {
+              prepareRow(row);
+              return (
+                <Tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <Td
+                        {...cell.getCellProps()}
+                        sx={{
+                          width: cell.column.width,
+                          minWidth: cell.column.minWidth,
+                        }}
+                      >
+                        {cell.render("Cell")}
+                      </Td>
+                    );
+                  })}
+                </Tr>
+              );
+            })}
+        </Tbody>
+      </Table>
+      <TableActions
+        canNextPage={false}
+        canPreviousPage={false}
+        gotoPage={() => {}}
+        pageIndex={0}
+        totalPages={10}
+      />
+    </>
   );
 };
